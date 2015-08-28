@@ -5,6 +5,7 @@ import os
 import tornado
 from tornado.options import define, options
 
+ENV = "dev"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 sys.path.append(os.path.join(ROOT, 'lib/'))
@@ -14,6 +15,9 @@ define("address", default="127.0.0.1", help="listen address")
 tornado.options.parse_command_line()
 
 settings = {}
+if ENV == "dev":
+    settings["autoreload"] = True
+
 settings["app_root"] = ROOT
 
 settings["template_path"] = "templates/"
