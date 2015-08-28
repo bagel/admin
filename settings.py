@@ -14,8 +14,13 @@ define("address", default="127.0.0.1", help="listen address")
 tornado.options.parse_command_line()
 
 settings = {}
+settings["app_root"] = ROOT
+
+settings["template_path"] = "templates/"
+
 settings["init_key"] = 'JvBI3SsQtNuH3cwgMcEy5rnICgY7bi4D'
 settings["init_file"] = '/var/ansible/tools/init.sh'
+
 settings["redis_host"] = '127.0.0.1'
 settings["redis_port"] = 6379
 

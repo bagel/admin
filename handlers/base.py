@@ -8,11 +8,18 @@ import tornado.ioloop
 import tornado.web
 import tornado.escape
 import tornado.log
+from tornado.options import define, options
+from jinja2 import Environment, PackageLoader, FileSystemLoader
 
 
 class BaseHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("Hello World!")
+
+    def render_template(self, template_name, **kwargs):
+        env = Environment(loader=FileSystemLoader(self.settings["template_path"]))
+        template = env.get_template(template_name)
+        return template.render(kwargs)
 
 class InitHandler(BaseHandler):
     def post(self):
@@ -25,7 +32,4 @@ class InitHandler(BaseHandler):
         with open(self.settings["init_file"], 'r') as fp:
             self.write(fp.read())
 
-class DnsHandler(BaseHandler):
-    def get(self):
-        ip = self.get_query_argument("ip", default=None)
-        domain = self.get_query_argument("domain", default=None)
+        
