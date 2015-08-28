@@ -10,11 +10,11 @@ import tornado.escape
 import tornado.log
 
 
-class MainHandler(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("Hello World!")
 
-class InitHandler(MainHandler):
+class InitHandler(BaseHandler):
     def post(self):
         key = self.get_body_argument("key", default="")
         if not key or key != self.settings["init_key"]:
@@ -25,7 +25,7 @@ class InitHandler(MainHandler):
         with open(self.settings["init_file"], 'r') as fp:
             self.write(fp.read())
 
-class DnsHandler(MainHandler):
+class DnsHandler(BaseHandler):
     def get(self):
         ip = self.get_query_argument("ip", default=None)
         domain = self.get_query_argument("domain", default=None)

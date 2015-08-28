@@ -1,6 +1,6 @@
-from handlers.main import MainHandler, InitHandler
+from handlers.base import BaseHandler, InitHandler
 
 url_patterns = [
-    (r"/", MainHandler),
+    (r"/", BaseHandler),
     (r"/init", InitHandler),
 ]
