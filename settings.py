@@ -22,6 +22,7 @@ if ENV == "dev":
 settings["app_root"] = ROOT
 
 settings["template_path"] = "templates/"
+settings["data_path"] = "data/"
 
 settings["init_key"] = 'JvBI3SsQtNuH3cwgMcEy5rnICgY7bi4D'
 settings["init_file"] = '/var/ansible/tools/init.sh'
