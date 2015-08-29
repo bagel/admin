@@ -2,10 +2,11 @@
 
 import sys
 import os
+import time
 import tornado
 from tornado.options import define, options
 
-ENV = "dev"
+ENV = "dev"  #"dev" or "pro"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 sys.path.append(os.path.join(ROOT, 'lib/'))

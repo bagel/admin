@@ -8,4 +8,4 @@ from base import BaseHandler
 class TestHandler(BaseHandler):
     def get(self):
         kwargs = {"test": "hello world"}
-        self.write(self.render_template("test.j2", **kwargs))
+        self.write(self.render_template("test.html", **kwargs))

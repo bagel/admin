@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Test{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { corlor: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+i am a test
+<br>
+{{ test }}
+{% endblock %}
