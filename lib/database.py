@@ -7,12 +7,13 @@ import cPickle
 import fcntl
 
 
-class DBP(object):
+class DBPickle(object):
     def __init__(self, dbpath, dbfile):
         self.dbpath = dbpath
         self.dbfile = dbfile
         self._file = os.path.join(self.dbpath, self.dbfile)
         self._fp = open(self._file, 'rb')
+        self._lock()
 
     def __enter__(self):
         pass
@@ -50,9 +51,7 @@ class DBP(object):
 
     def save(self, obj):
         self._write()
-        self._lock()
         res = self._dump(obj)
-        self._unlock()
         self._read()
         return res
 

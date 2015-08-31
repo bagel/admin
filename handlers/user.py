@@ -4,12 +4,12 @@ import os
 import sys
 import random
 from base import BaseHandler
-from database import DBP
+from database import DBPickle
 
 
 class LoginHandler(BaseHandler):
     def initialize(self):
-        self.dbp = DBP(self.settings["data_path"], "user.pke")
+        self.dbp = DBPickle(self.settings["data_path"], "user.pke")
 
     def get(self):
         self.dbp.set("test", "hello world {}".format(random.randint(1, 100000)))
