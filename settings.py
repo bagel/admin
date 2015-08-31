@@ -24,6 +24,11 @@ settings["app_root"] = ROOT
 settings["template_path"] = "templates/"
 settings["data_path"] = "data/"
 
+settings["ldap_url"] = "ldap://127.0.0.1:389"
+settings["ldap_secret"] = "J5Ku9xJxnqw4mRsU7hdfmy7brs0jDK"
+settings["ldap_dn"] = "CN=admin,OU=users,DC=changker,DC=com"
+settings["ldap_ou"] = "ou=users,dc=changker,dc=com"
+
 settings["init_key"] = 'JvBI3SsQtNuH3cwgMcEy5rnICgY7bi4D'
 settings["init_file"] = '/var/ansible/tools/init.sh'
 

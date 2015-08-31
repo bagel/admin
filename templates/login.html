@@ -4,7 +4,23 @@
     {{ super() }}
 {% endblock %}
 {% block content %}
-    登录
-    <br>
-    {{ test }}
+<div class="col-lg-1"></div>
+<div class="col-lg-10">
+    <form role="form" method="POST" action="/login">
+    <div class="col-lg-offset-4 col-lg-3" style="padding-top: 100px;">
+        {% if errmsg %}
+        <div class="alert alert-danger">{{ errmsg }}</div>
+        {% endif %}
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+            <input type="text" class="form-control" name="mail" placeholder="邮箱">
+        </div>
+        <div class="input-group" style="padding-top: 10px; padding-bottom: 10px;">
+            <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+            <input type="password" class="form-control" name="password" placeholder="密码">
+        </div>
+        <button type="submit" class="btn btn-block btn-primary">登录</button>
+    </div>
+    </form>
+</div>
 {% endblock %}
