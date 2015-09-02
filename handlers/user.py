@@ -6,6 +6,9 @@ import random
 import time
 import hashlib
 import base64
+import qrcode
+import qrcode.image.svg
+import cStringIO
 from base import BaseHandler
 from database import DBPickle
 from ldaplib import LDAP
@@ -57,6 +60,15 @@ class UserHandler(BaseHandler):
         self.clear_cookie("CK_token")
         self.redirect("/login")
 
+    def qrcode_svg(self, user, secret):
+        fp = cStringIO.StringIO()
+        s = 'otpauth://totp/{}@tunnel01?secret={}&issuer=tunnel01'
+        qr = qrcode.make(s.format(user, secret), image_factory=qrcode.image.svg.SvgPathImage)
+        qr.save(fp)
+        svg = fp.getvalue()
+        fp.close()
+        return svg
+
     def get(self):
         token = self.get_cookie("CK_token", default="")
         if not token:
@@ -69,7 +81,7 @@ class UserHandler(BaseHandler):
         tm = int(time.time()) / 3600
         if h != hashlib.md5("{}#{}#CK".format(user, tm)).hexdigest()[:10]:
             return self._redirect()
-        kwargs = {"user": user}
+        kwargs = {"user": user, "qrcode_svg": self.qrcode_svg(user, "GFGFGIK2JFQTGVCA")}
         self.write(self.render_template("user.html", **kwargs))
 
 

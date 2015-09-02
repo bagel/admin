@@ -8,28 +8,68 @@
 <div class="col-lg-10">
     <div class="col-lg-offset-2 col-lg-8" style="padding-top: 30px">
         <div class="card">
-            <div class="card-header"><h5>修改密码</h5></div>
+            <div class="card-header"><h5>修改静态密码</h5></div>
             <div class="card-block">
                 <!--<h4 class="card-title">修改密码</h4>-->
                 <p class="card-text">
                     <form role="form" method="POST" action="/user">
                     <div class="row">
-                    <div class="col-lg-offset-2 col-lg-6">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-                            <input type="password" class="form-control" name="password" placeholder="输入新密码" data-container="body" data-toggle="popover" data-placement="right" data-content="密码">
+                        <div class="col-lg-offset-2 col-lg-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+                                <input type="password" class="form-control" name="password" placeholder="输入新密码" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="密码至少10位, 包含特殊字符">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+                                <input type="password" class="form-control" name="password" placeholder="再次输入新密码" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="密码至少10位, 包含特殊字符">
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">确认</button>
                         </div>
-                        <br>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-                            <input type="password" class="form-control" name="password" placeholder="再次输入密码">
-                        </div>
-                    </div>
                     </div>
                     </form>
                 </p>
             </div>
         </div>
+        <br>
+        <div class="card">
+            <div class="card-header"><h5>重置动态密钥</h5></div>
+            <div class="card-block">
+                <p class="card-text">
+                    <div class="row">
+                        <div class="col-lg-offset-2 col-lg-3">
+                            <div class="card">
+                            {{ qrcode_svg }}
+                            </div>
+                            <span>使用google验证器扫描</span>
+                            <br>
+                            <br>
+                            <button class="btn btn-primary">重新生成</button>
+                        </div>
+                    </div>
+                </p>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header"><h5>用户管理</h5></div>
+            <div class="card-block">
+                <p class="card-text">
+                非管理帐号
+                </p>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
+
+$('.popover-dismiss').popover({
+    trigger: 'focus'
+})
+</script>
 {% endblock %}

@@ -30,3 +30,7 @@ class LDAP(object):
         except ldap.INVALID_CREDENTIALS:
             pass
         return LDAP_USER_AUTH_FAIL
+
+    def add(self, user):
+        pass
+
