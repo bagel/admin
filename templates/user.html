@@ -1,11 +1,35 @@
 {% extends "base.html" %}
-{% block title %}用户{% endblock %}
+{% block title %}用户管理{% endblock %}
 {% block head %}
     {{ super() }}
 {% endblock %}
 {% block content %}
 <div class="col-lg-1"></div>
 <div class="col-lg-10">
-{{ user }}
+    <div class="col-lg-offset-2 col-lg-8" style="padding-top: 30px">
+        <div class="card">
+            <div class="card-header"><h5>修改密码</h5></div>
+            <div class="card-block">
+                <!--<h4 class="card-title">修改密码</h4>-->
+                <p class="card-text">
+                    <form role="form" method="POST" action="/user">
+                    <div class="row">
+                    <div class="col-lg-offset-2 col-lg-6">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+                            <input type="password" class="form-control" name="password" placeholder="输入新密码" data-container="body" data-toggle="popover" data-placement="right" data-content="密码">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+                            <input type="password" class="form-control" name="password" placeholder="再次输入密码">
+                        </div>
+                    </div>
+                    </div>
+                    </form>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

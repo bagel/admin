@@ -20,6 +20,7 @@ class LoginHandler(BaseHandler):
                          self.settings["ldap_ou"])
 
     def get(self):
+        self.clear_cookie("CK_token")
         self.write(self.render_template("login.html"))
 
     def post(self):
@@ -60,8 +61,11 @@ class UserHandler(BaseHandler):
         token = self.get_cookie("CK_token", default="")
         if not token:
             return self._redirect()
-        token = base64.b64decode(token)
-        user, h = token.split('.')
+        try:
+            token = base64.b64decode(token)
+            user, h = token.split('.')
+        except:
+            return self._redirect()
         tm = int(time.time()) / 3600
         if h != hashlib.md5("{}#{}#CK".format(user, tm)).hexdigest()[:10]:
             return self._redirect()
