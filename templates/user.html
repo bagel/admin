@@ -12,23 +12,22 @@
             <div class="card-block">
                 <!--<h4 class="card-title">修改密码</h4>-->
                 <p class="card-text">
-                    <form role="form" method="POST" action="/user">
                     <div class="row">
                         <div class="col-lg-offset-2 col-lg-6">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-                                <input type="password" class="form-control" name="password" placeholder="输入新密码" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="密码至少10位, 包含特殊字符">
+                                <input id="first_password" type="password" class="form-control" name="password" placeholder="输入新密码" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="密码至少10位，包含数字、字母和特殊字符">
                             </div>
                             <br>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-                                <input type="password" class="form-control" name="password" placeholder="再次输入新密码" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="密码至少10位, 包含特殊字符">
+                                <input id="second_password" type="password" class="form-control" name="password" placeholder="再次输入新密码" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="密码至少10位，包含数字、字母和特殊字符">
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-primary">确认</button>
+                            <div id="update_ssha_alert"></div>
+                            <button class="btn btn-primary" onclick="update_ssha()">确认</button>
                         </div>
                     </div>
-                    </form>
                 </p>
             </div>
         </div>
@@ -71,5 +70,33 @@ $(function () {
 $('.popover-dismiss').popover({
     trigger: 'focus'
 })
+
+function update_ssha() {
+    var user = "{{ user }}",
+        first_passwd = document.getElementById("first_password").value,
+        second_passwd = document.getElementById("second_password").value;
+    if (! first_passwd || ! second_passwd) {
+        $("#update_ssha_alert").empty().append(
+            '<div class="alert alert-danger">密码不能为空</div>'
+        );
+        return;
+    }
+    if (first_passwd != second_passwd) {
+        $("#update_ssha_alert").empty().append(
+            '<div class="alert alert-danger">两次输入密码不一致</div>'
+        );
+        return;
+    }
+    $.post("/user/updatessha", {"user": user, "passwd": first_passwd}, function(data) {
+        var alert_content = "";
+        if (parseInt(data.result) == 0) {
+            alert_content = '<div class="alert alert-success">修改成功</div>'
+        } else {
+            alert_content = '<div class="alert alert-danger">' + data.errmsg + '</div>'
+        }
+        $("#update_ssha_alert").empty().append(alert_content);
+    }, "json");
+    
+}
 </script>
 {% endblock %}
